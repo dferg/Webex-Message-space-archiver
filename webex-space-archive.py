@@ -49,6 +49,7 @@ version = __version__
 printPerformanceReport = False
 printErrorList = True
 max_messages = 500
+max_filename_len = 128
 currentDate = datetime.datetime.now().strftime("%x %X")
 configFile = "webexspacearchive-config.ini"
 myMemberList = dict()
@@ -980,7 +981,7 @@ def process_Files(fileData, fileDate):
         except Exception as e:
             filename = "error-getting-filename"
             myErrorList.append("def process_Files Header 'content-disposition' error for url: " + url)
-        filename = format_filename(filename)
+        filename = format_filename(filename)[:max_filename_len]
         filesize = int(r.headers['Content-Length'])
         fileextension = os.path.splitext(filename)[1][1:].replace("\"", "")
         filenamepart = os.path.splitext(filename)[0]
